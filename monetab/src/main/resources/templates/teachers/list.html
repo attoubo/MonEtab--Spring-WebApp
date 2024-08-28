@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+<div class="main-content">
+    <h1>Professeurs (<span th:text="${teachers.size()}"></span>)</h1>
+    <button class="buttonBlue" id="addTeacher" th:onclick="'window.location.href=\'/teachers/add\';'">
+        + Nouveau professeur
+    </button>
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Matière</th>
+            <th>Vacant</th>
+            <th>Ville</th>
+            <th>Date de Naissance</th>
+            <th>Téléphone</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="teacher : ${teachers}">
+            <td th:text="${teacher.nom}">Nom</td>
+            <td th:text="${teacher.prenom}">Prénom</td>
+            <td th:text="${teacher.email}">Email</td>
+            <td th:text="${teacher.matiere}">Matière</td>
+            <td th:text="${teacher.vaccant}">Vacant</td>
+            <td th:text="${teacher.ville}">Ville</td>
+            <td th:text="${#dates.format(teacher.dateNaissance, 'dd-MM-yyyy')}">Date de Naissance</td>
+            <td th:text="${teacher.telephone}">Téléphone</td>
+            <td>
+                <a class="buttonOrg" th:href="@{/teachers/update/{id}(id=${teacher.id})}">Modifier</a>
+                <button class="buttonRed" th:onclick="'showConfirmationPopup(' + ${teacher.id} + ', \'teacher\')'">Supprimer</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Pop-up de confirmation -->
+<div id="confirmationPopup" class="popup">
+    <div class="popup-content">
+        <h2>ATTENTION !!!</h2>
+        <p>Voulez-vous supprimer cet élément ?</p>
+        <div class="popup-buttons">
+            <button id="cancelBtn" class="btn buttonRed" onclick="hideConfirmationPopup()">Non</button>
+            <form id="deleteForm" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" class="btn buttonRed">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

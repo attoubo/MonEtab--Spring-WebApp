@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+<div class="main-content">
+    <h1>Élèves (<span th:text="${students.size()}"></span>)</h1>
+    <button class="buttonBlue" id="addStudent"
+            th:onclick="'window.location.href=\'/students/add\';'">+ Nouvel élève</button>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Genre</th>
+            <th>Date de Naissance</th>
+            <th>Matricule</th>
+            <th>Email</th>
+            <th>Classe</th>
+            <th>Téléphone</th>
+            <th>Ville</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}">
+            <td th:text="${student.nom}">Nom</td>
+            <td th:text="${student.prenom}">Prénom</td>
+            <td th:text="${student.genre}">Genre</td>
+            <td th:text="${#dates.format(student.dateNaissance, 'dd-MM-yyyy')}">Date de Naissance</td>
+            <td th:text="${student.matricule}">Matricule</td>
+            <td th:text="${student.email}">Email</td>
+            <td th:text="${student.classe}">Classe</td>
+            <td th:text="${student.telephone}">Téléphone</td>
+            <td th:text="${student.ville}">Ville</td>
+            <td>
+                <a class="buttonOrg" th:href="@{/students/update/{id}(id=${student.id})}">Modifier</a>
+                <button class="buttonRed" th:onclick="'showConfirmationPopup(' + ${student.id} + ', \'student\')'">Supprimer</button>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<!-- Pop-up de confirmation -->
+<div id="confirmationPopup" class="popup">
+    <div class="popup-content">
+        <h2>ATTENTION !!!</h2>
+        <p>Voulez-vous supprimer cet élément ?</p>
+        <div class="popup-buttons">
+            <button id="cancelBtn" class="btn buttonRed" onclick="hideConfirmationPopup()">Non</button>
+            <form id="deleteForm" method="post">
+                <input type="hidden" name="_method" value="delete"/>
+                <button type="submit" class="btn buttonRed">Supprimer</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

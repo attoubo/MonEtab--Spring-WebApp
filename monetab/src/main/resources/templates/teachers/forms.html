@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+<div class="main-content-form">
+    <a th:href="@{/teachers}" class="back-button">
+        <span class="arrow">←</span>
+        <h3>Retour</h3>
+    </a>
+    <h1 th:text="${teacher.id == null}?'Ajouter professeur':'Modifier professeur'" ></h1>
+    <form class="form-ajout" th:object="${teacher}" th:action="@{/teachers}" method="post">
+        <div class="left-section">
+            <input th:field="*{id}" hidden type="text">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" th:field="*{nom}" id="nom" name="nom" required />
+            </div>
+
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input th:field="*{prenom}" type="text" id="prenom" name="prenom" required />
+            </div>
+
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                <input th:field="*{genre}" type="text" id="genre" name="genre" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input th:field="*{email}" type="text" id="email" name="email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="matiere">Matiere</label>
+                <input th:field="*{matiere}" type="text" id="matiere" name="matiere" required />
+            </div>
+
+            <div class="form-group">
+                <label>Vacant:</label>
+                <input th:field="*{vaccant}" type="radio" id="vaccantOui" name="vaccant" value="true" />
+                <label for="vaccantOui">Oui</label>
+                <input th:field="*{vaccant}" type="radio" id="vaccantNon" name="vaccant" value="false" />
+                <label for="vaccantNon">Non</label>
+            </div>
+
+            <div class="form-group">
+                <label for="dateNaissance">Date de Naissance</label>
+                <input th:field="*{dateNaissance}" type="date" id="dateNaissance" name="dateNaissance" required />
+            </div>
+
+            <div class="form-group">
+                <label for="sujetProchainCours">Sujet Prochain Cours</label>
+                <input th:field="*{sujetProchainCours}" type="text" id="sujetProchainCours" name="sujetProchainCours" required />
+            </div>
+        </div>
+
+        <div>
+            <div class="form-group">
+                <label for="telephone">Téléphone</label>
+                <input th:field="*{telephone}" type="tel" id="telephone" name="telephone" required />
+            </div>
+
+            <div class="form-group">
+                <label for="ville">Ville</label>
+                <input th:field="*{ville}" type="text" id="ville" name="ville" required />
+            </div>
+
+            <div class="form-group">
+                <label for="matiereEnseigne">Matière Enseignée</label>
+                <input th:field="*{matiereEnseigne}" type="text" id="matiereEnseigne" name="matiereEnseigne" required />
+            </div>
+
+            <div class="buttons main-content">
+                <button type="reset" class="btn buttonRed">Annuler</button>
+                <button type="submit" class="btn buttonGreen">Enregistrer</button>
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

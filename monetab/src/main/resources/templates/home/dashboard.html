@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+<div class="main-content-dashboard">
+        <h1>Tableau de bord</h1>
+        <div class="stats" id="statsContainer">
+            <!-- Les boîtes de statistiques seront générées ici -->
+        </div>
+    </div>
+    <th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

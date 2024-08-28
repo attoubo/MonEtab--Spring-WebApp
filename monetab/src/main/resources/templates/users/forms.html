@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+<div class="main-content-form">
+    <a th:href="@{/users}" class="back-button">
+        <span class="arrow">←</span>
+        <h3>Retour</h3>
+    </a>
+    <h1 th:text="${user.id == null} ? 'Ajouter Utilisateur' : 'Modifier Utilisateur'"></h1>
+
+    <form class="form-ajout" th:object="${user}" th:action="@{/users}" method="post">
+        <div class="main-content">
+            <input th:field="*{id}" hidden type="text">
+
+            <div class="form-group">
+                <label for="pseudo">Pseudo</label>
+                <input type="text" th:field="*{pseudo}" id="pseudo" name="pseudo" placeholder="Pseudo" required />
+            </div>
+
+<!--            <div class="form-group">-->
+<!--                <label for="datecreate">Email</label>-->
+                <input type="hidden" th:field="*{creationDate}" />
+<!--            </div>-->
+
+            <div class="form-group">
+                <label for="motDePasse">Mot de passe</label>
+                <input type="text" th:field="*{password}" id="motDePasse" name="motDePasse" placeholder="Mot de passe" required />
+            </div>
+
+            <div class="form-group">
+                <label for="confirmMotDePasse">Confirmer Mot de Passe</label>
+                <input type="text" id="confirmMotDePasse" name="confirmMotDePasse" placeholder="Confirmer mot de passe" required />
+            </div>
+            <div class="buttons main-content">
+                <button type="reset" class="btn buttonRed">Annuler</button>
+                <button type="submit" class="btn buttonGreen">Enregistrer</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

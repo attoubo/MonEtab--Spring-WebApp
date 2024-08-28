@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+<div class="main-content-form">
+    <a th:href="@{/students}" class="back-button">
+        <span class="arrow">←</span>
+        <h3>Retour</h3>
+    </a>
+    <h1 th:text="${student.id == null}?'Ajouter Eleve':'Modifier Eleve'" ></h1>
+    <form class="form-ajout" th:object="${student}" th:action="@{/students}" method="post">
+        <div class="left-section">
+            <input th:field="*{id}" hidden type="text">
+            <div class="form-group">
+                <label for="nom">Nom</label>
+                <input type="text" th:field="*{nom}" id="nom" name="nom" required>
+            </div>
+
+            <div class="form-group">
+                <label for="prenom">Prénom</label>
+                <input type="text" th:field="*{prenom}" id="prenom" name="prenom" required>
+            </div>
+
+            <div class="form-group">
+                <label for="genre">Genre</label>
+                <input th:field="*{genre}" type="text" id="genre" name="genre" required />
+            </div>
+
+            <div class="form-group">
+                <label for="matricule">Matricule</label>
+                <input type="text" th:field="*{matricule}" id="matricule" name="matricule" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dateNaissanceStud">Date de Naissance</label>
+                <input th:field="*{dateNaissance}" type="date" id="dateNaissanceStud" name="dateNaissanceStud" required />
+            </div>
+
+        </div>
+
+        <div class="right-section">
+            <div class="form-group">
+                <label for="classe">Sélectionner une Classe</label>
+                <select th:field="*{classe}" id="classe" name="classe" required>
+                    <option value="Tle">Tle</option>
+                    <option value="1ère">1ère</option>
+                    <option value="2nde">2nde</option>
+                    <option value="3ème">3ème</option>
+                    <option value="4ème">4ème</option>
+                    <option value="5ème">5ème</option>
+                    <option value="6ème">6ème</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="ville">Ville</label>
+                <input th:field="*{ville}" type="text" id="ville" name="ville" required />
+            </div>
+
+            <div class="form-group">
+                <label for="telephone">Téléphone</label>
+                <input type="tel" th:field="*{telephone}" id="telephone" name="telephone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" th:field="*{email}" id="email" name="email" required>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button type="reset" class="btn buttonRed">Annuler</button>
+            <button type="submit" class="btn buttonGreen">Enregistrer</button>
+        </div>
+    </form>
+</div>
+<script>
+    function showConfirmationPopup(id, type) {
+        const popup = document.getElementById("confirmationPopup");
+        popup.style.display = "block"; // Afficher la pop-up
+
+        const form = document.getElementById("deleteForm");
+        form.action = (type === 'teacher' ? '/teachers/delete/' : '/students/delete/') + id;
+    }
+</script>
+<th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

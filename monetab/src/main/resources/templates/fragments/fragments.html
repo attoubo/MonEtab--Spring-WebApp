@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="html_head">
+    <meta charset="UTF-8">
+    <title>Mon Etab - Tableau de bord</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+<div class="sidebar" th:fragment="sidebar">
+    <h2>Mon Etab</h2>
+    <ul>
+        <li><a class="" href="/home">Tableau de bord</a></li>
+        <li><a href="/students">Élèves</a></li>
+        <li><a href="/teachers">Professeurs</a></li>
+        <li><a href="/users">Utilisateurs</a></li>
+        <li><a href="/report">Rapports</a></li>
+    </ul>
+    <a href="#" id="logout" th:href="@{/}" class="logout-btn">Déconnexion</a>
+</div>
+
+<!--<header th:insert="fragments/general.html :: header"> </header>-->
+<!--<p>Go to the next page to see fragments in action</p>-->
+
+<div th:replace="fragment ::html_footer"></div>
+
+<th:block th:fragment="script">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="/js/script.js"></script>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Mon Etab - Connexion</title>-->
+<!--    <link rel="stylesheet" href="styles.css">-->
+<!--</head>-->
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+    <div class="login-container">
+        <form id="loginForm">
+            <h1>Mon Etab</h1>
+            <div class="input-group">
+                <label for="username">Identifiant</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button class="buttonBlue" type="submit"><a th:href="@{/home}">Connexion</a></button>
+        </form>
+    </div>
+    <th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>

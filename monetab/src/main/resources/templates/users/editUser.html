@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Etab - Ajouter un Professeur</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Mon Etab</h2>
+        <ul>
+            <li><a href="homePage.html">Tableau de bord</a></li>
+            <li><a href="studentPage.html">Élèves</a></li>
+            <li><a href="professorPage.html">Professeurs</a></li>
+            <li><a href="cours.html">Cours</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+        <a href="#" id="logout" class="logout-btn">Déconnexion</a>
+    </div>
+    <div class="main-content-form">
+        <a href="list.html" class="back-button">
+            <span class="arrow">←</span>
+            <h3>Retour</h3>
+        </a>
+        <h1>Modifer l'utilisateur - 245</h1>
+        <form class="form-ajout">
+            <div class="left-section">
+                <div class="form-group">
+                    <input type="text" id="admin" name="admin" placeholder="admin" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="a-mdepasse" name="a-mdepasse" placeholder="Ancien mot de passe">
+                </div>
+
+
+                <div class="form-group">
+                    <input type="text" id="nv-mdepasse" name="nv-mdepasse" placeholder="Nouveau mot de passe" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="text" id="c-nv-mdepasse" name="c-nv-mdepasse" placeholder="Confirmer nouveau mot de passe" required>
+                </div>
+            </div>
+
+        </form>
+        <div class="buttons">
+            <button type="reset" class="btn buttonRed">Annuler</button>
+            <button type="submit" class="btn buttonGreen">Enregistrer</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

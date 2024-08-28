@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:insert="fragments/fragments :: html_head"></head>
+<body>
+<div th:insert="fragments/fragments :: sidebar"></div>
+    <div class="main-content-form">
+        <h1>Rapport</h1>
+        <form class="form-ajout">
+            <div class="form-group">
+                <select id="classe" name="classe" required>
+                    <option value="listEleve">Sélectionner une option</option>
+                    <option value="listEleve">Liste des élèves</option>
+                    <option value="listProf">Liste des professeurs</option>
+                    <option value="listUser">Liste des utilisateurs</option>
+                </select>
+            </div>
+
+            <div class="buttons">
+                <button type="button" class="btn buttonRed">Générer format PDF</button>
+                <button type="button" class="btn buttonGreen">Générer format Excel</button>
+            </div>
+        </form>
+    </div>
+<th:block th:insert="fragments/fragments :: script"></th:block>
+</body>
+</html>
