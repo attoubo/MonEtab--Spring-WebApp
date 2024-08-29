@@ -5,6 +5,17 @@
 <div th:insert="fragments/fragments :: sidebar"></div>
 <div class="main-content">
     <h1>Professeurs (<span th:text="${teachers.size()}"></span>)</h1>
+
+
+<!--    <div th:if="${message}" class="alert alert-success" role="alert">-->
+<!--        <span th:text="${message}"></span>-->
+<!--    </div>-->
+
+<!--    <div th:if="${error}" class="alert alert-danger" role="alert">-->
+<!--        <span th:text="${error}"></span>-->
+<!--    </div>-->
+
+
     <button class="buttonBlue" id="addTeacher" th:onclick="'window.location.href=\'/teachers/add\';'">
         + Nouveau professeur
     </button>
@@ -30,7 +41,7 @@
             <td th:text="${teacher.matiere}">Matière</td>
             <td th:text="${teacher.vaccant}">Vacant</td>
             <td th:text="${teacher.ville}">Ville</td>
-            <td th:text="${#dates.format(teacher.dateNaissance, 'dd-MM-yyyy')}">Date de Naissance</td>
+            <td th:text="${#temporals.format(teacher.dateNaissance, 'MM-dd-yyyy')}">Date de Naissance</td>
             <td th:text="${teacher.telephone}">Téléphone</td>
             <td>
                 <a class="buttonOrg" th:href="@{/teachers/update/{id}(id=${teacher.id})}">Modifier</a>
@@ -48,6 +59,7 @@
         <p>Voulez-vous supprimer cet élément ?</p>
         <div class="popup-buttons">
             <button id="cancelBtn" class="btn buttonRed" onclick="hideConfirmationPopup()">Non</button>
+
             <form id="deleteForm" method="post">
                 <input type="hidden" name="_method" value="delete"/>
                 <button type="submit" class="btn buttonRed">Supprimer</button>

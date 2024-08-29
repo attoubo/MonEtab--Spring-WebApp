@@ -28,7 +28,7 @@
             <td th:text="${student.nom}">Nom</td>
             <td th:text="${student.prenom}">Prénom</td>
             <td th:text="${student.genre}">Genre</td>
-            <td th:text="${#dates.format(student.dateNaissance, 'dd-MM-yyyy')}">Date de Naissance</td>
+            <td th:text="${#temporals.format(student.dateNaissance, 'MM-dd-yyyy')}">Date de Naissance</td>
             <td th:text="${student.matricule}">Matricule</td>
             <td th:text="${student.email}">Email</td>
             <td th:text="${student.classe}">Classe</td>

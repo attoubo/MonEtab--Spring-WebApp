@@ -14,7 +14,6 @@ import java.util.Set;
 @DiscriminatorValue("teacher")
 public class Teacher extends Person {
 
-
     @Column(name = "vaccant", nullable = false)
     private Boolean vaccant;
 

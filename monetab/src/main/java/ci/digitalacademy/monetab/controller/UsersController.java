@@ -2,11 +2,13 @@ package ci.digitalacademy.monetab.controller;
 
 import ci.digitalacademy.monetab.models.User;
 import ci.digitalacademy.monetab.service.UserService;
+import ci.digitalacademy.monetab.service.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +30,7 @@ public class UsersController {
 
     @GetMapping
     public String showUserList(Model model){
-        List<User> users = userService.findAll();
+        List<UserDTO> users = userService.findAll();
         model.addAttribute("users", users);
         return "users/list";
     }
@@ -42,19 +44,16 @@ public class UsersController {
 
 
     @PostMapping
-    public String saveUser(User user){
-        log.debug("Request for saving a Student : {}", user);
-        if (user.getId() == null) {
-            user.setCreationDate(Instant.now());
+    public String saveUser(UserDTO userDTO,  BindingResult result){
+        log.debug("Request for saving a Student : {}", userDTO);
+        if (userDTO.getId() == null) {
+            userDTO.setCreationDate(Instant.now());
         }
 
-        if (user.getAddress() != null && user.getAddress().getCity() != null) {
-            log.debug("Saving user with address: {}", user.getAddress().getCity());
-        } else {
-            user.setAddress(null);
-            log.debug("Saving user with null address");
+        if (result.hasErrors()) {
+            return "/users/add";
         }
-        userService.save(user);
+        userService.save(userDTO);
         return "redirect:/users";
 
     }
@@ -62,7 +61,7 @@ public class UsersController {
     @GetMapping("/update/{id}")
     public String showUpdateUserForm(Model model, @PathVariable Long id){
         log.debug("Request for showing update user form");
-        Optional<User> user = userService.findOne(id);
+        Optional<UserDTO> user = userService.findOne(id);
 
         if (user.isPresent()) {
             log.info("User found: {}", user);

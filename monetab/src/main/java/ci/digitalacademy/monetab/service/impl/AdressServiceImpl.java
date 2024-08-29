@@ -22,7 +22,6 @@ public class AdressServiceImpl implements AdressService {
     @Override
     public AddressDTO save(AddressDTO addressDTO) {
         log.debug("Saving address: {}", addressDTO);
-
         Address address = AddressMapper.toEntity(addressDTO);
         address = adressRepository.save(address);
         return AddressMapper.toDto(address);

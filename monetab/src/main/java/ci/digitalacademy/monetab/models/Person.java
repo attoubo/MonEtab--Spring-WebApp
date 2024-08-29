@@ -3,6 +3,7 @@ package ci.digitalacademy.monetab.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 import java.time.Instant;
@@ -36,11 +37,12 @@ public abstract class Person {
     @Column(name = "telephone", nullable = false, unique = true)
     private String telephone;
 
-    @Column(name = "city", nullable = false, unique = true)
+    @Column(name = "city", nullable = false)
     private String ville;
 
+    @DateTimeFormat(pattern = "MM-dd-yyyy")
     @Column(name = "date_naissance", nullable = false)
-    private Date dateNaissance;
+    private LocalDate dateNaissance;
 
 
     @Override

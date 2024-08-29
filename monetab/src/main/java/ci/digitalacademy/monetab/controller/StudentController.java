@@ -2,10 +2,12 @@ package ci.digitalacademy.monetab.controller;
 
 import ci.digitalacademy.monetab.models.Student;
 import ci.digitalacademy.monetab.service.StudentService;
+import ci.digitalacademy.monetab.service.dto.StudentDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +27,7 @@ public class StudentController {
 
     @GetMapping
     public String showStudentList(Model model) {
-        List<Student> students = studentService.findAll();
+        List<StudentDTO> students = studentService.findAll();
         model.addAttribute("students", students);
         return "students/list";
     }
@@ -41,7 +43,7 @@ public class StudentController {
     public String showUpdateStudentForm(Model model, @PathVariable Long id) {
         log.debug("Request for showing update student form");
 
-        Optional<Student> student = studentService.findOne(id);
+        Optional<StudentDTO> student = studentService.findOne(id);
         if (student.isPresent()) {
             log.info("Student found: {}", student.get());
             model.addAttribute("student", student.get());
@@ -54,9 +56,12 @@ public class StudentController {
     }
 
     @PostMapping
-    public String saveStudent(Student student){
-        log.debug("Request for saving a Student : {}", student);
-        studentService.save(student);
+    public String saveStudent(StudentDTO studentDTO, BindingResult result){
+        log.debug("Request for saving a Student : {}", studentDTO);
+        if (result.hasErrors()) {
+            return "/teachers/add";
+        }
+        studentService.save(studentDTO);
         return "redirect:/students";
 
     }

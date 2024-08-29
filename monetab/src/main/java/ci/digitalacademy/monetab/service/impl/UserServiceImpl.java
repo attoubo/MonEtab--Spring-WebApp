@@ -1,8 +1,12 @@
 package ci.digitalacademy.monetab.service.impl;
 
+import ci.digitalacademy.monetab.models.Teacher;
 import ci.digitalacademy.monetab.models.User;
 import ci.digitalacademy.monetab.repositories.UserRepository;
 import ci.digitalacademy.monetab.service.UserService;
+import ci.digitalacademy.monetab.service.dto.UserDTO;
+import ci.digitalacademy.monetab.service.mapper.TeacherMapper;
+import ci.digitalacademy.monetab.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +25,22 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public User save(User user) {
-        log.debug("Saving user: {}", user);
-        return userRepository.save(user);
+    public UserDTO save(UserDTO userDTO) {
+        log.debug("Saving User: {}", userDTO);
+
+        User user = UserMapper.toEntity(userDTO);
+        user = userRepository.save(user);
+        return UserMapper.toDto(user);
     }
 
     @Override
-    public User update(User user) {
-        return null;
+    public UserDTO update(UserDTO userDTO) {
+        return findOne(userDTO.getId()).map(existingUser-> {
+            existingUser.setPseudo(userDTO.getPseudo());
+            existingUser.setPassword(userDTO.getPassword());
+            existingUser.setCreationDate(userDTO.getCreationDate());
+            return save(userDTO);
+        }).orElseThrow(()-> new IllegalArgumentException());
     }
 
 //    @Override
@@ -59,14 +71,18 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public Optional<User> findOne(Long id) {
-        return userRepository.findById(id);
+    public Optional<UserDTO> findOne(Long id) {
+        return userRepository.findById(id).map(user -> {
+            return UserMapper.toDto(user);
+        });
     }
 
     @Override
-    public List<User> findAll() {
+    public List<UserDTO> findAll() {
 //        log.debug("Saving user: {}", );
-        return userRepository.findAll();
+        return userRepository.findAll().stream().map(user -> {
+            return UserMapper.toDto(user);
+        }).toList();
 
     }
 

@@ -26,8 +26,7 @@ public class Address {
     @Column(name = "street", nullable = false)
     private String street;
 
-
-    @OneToOne(mappedBy = "adress")
+    @OneToOne(mappedBy = "address")
     private User user;
 
 }
